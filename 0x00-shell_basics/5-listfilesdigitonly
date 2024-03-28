@@ -1,2 +1,3 @@
 #!/bin/bash
 ls -lan
+sh: 1: q: not found
