@@ -3,27 +3,5 @@
 # Define the server address
 SERVER="34.138.32.248"
 
-# Define the private key path
-KEY_PATH="$HOME/.ssh/school"
-
-# Check if the server address is not empty
-if [ -z "$SERVER" ]; then
-	echo "Server address is not specified. Exiting."
-	exit 1
-fi
-
-	# Check if the private key file exists
-if [ ! -f "$KEY_PATH" ]; then
-	echo "Private key file not found at $KEY_PATH. Exiting."
-	exit 1
-fi
-
-	# Use ssh with single-character flags
-ssh -i "$KEY_PATH" ubuntu@$SERVER
-
-	# Check the result of the ssh command
-if [ $? -ne 0 ]; then
-	echo "Failed to connect to the server. Exiting."
-	exit 1
-fi
-
+# Use ssh with single-character flags
+ssh -i ~/.ssh/school ubuntu@$SERVER
