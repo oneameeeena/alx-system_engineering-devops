@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Define the server address
+SERVER="34.138.32.248"
+
+# Use ssh with single-character flags
+ssh -i ~/.ssh/school ubuntu@$SERVER
