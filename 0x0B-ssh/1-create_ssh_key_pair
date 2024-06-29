@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
+
+# Define the output file and passphrase
+OUTPUT_FILE="school"
+PASSPHRASE="betty"
+
 # Create an RSA key pair
-ssh-keygen -b 4096 -f school -N betty
+ssh-keygen -t rsa -b 4096 -f "$OUTPUT_FILE" -N "$PASSPHRASE"
+
