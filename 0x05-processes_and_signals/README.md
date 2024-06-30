@@ -1,0 +1,1 @@
+Processes and signals are fundamental concepts in operating systems, essential for managing and controlling the execution of programs. This overview covers the basics of processes and signals, how they interact, and their significance in system programming.
