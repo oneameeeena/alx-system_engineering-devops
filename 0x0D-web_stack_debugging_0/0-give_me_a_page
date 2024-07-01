@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
-# run apache on designated container
+# Set up and start Apache on the designated container
 
-echo "ServerName localhost" >> /etc/apache2.conf
+# Ensure the Apache configuration file has the ServerName set to avoid startup warnings
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Start the Apache service
 service apache2 start
+
+# Ensure Apache starts on boot
+update-rc.d apache2 defaults
+
+# Confirm that Apache is running
+service apache2 status
+
+# Create a simple HTML file to serve
+echo "<html><body><h1>Hello Holberton</h1></body></html>" > /var/www/html/index.html
+
+# Restart Apache to apply changes
+service apache2 restart
+
