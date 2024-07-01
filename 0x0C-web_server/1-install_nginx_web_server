@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Update package list
+sudo apt-get update || exit 1
+
+# Install Nginx
+sudo apt-get install -y nginx || exit 1
+
+# Create a custom HTML file that contains "Hello World!"
+echo "<html>
+  <head>
+    <title>Welcome to nginx!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+  </body>
+</html>" | sudo tee /var/www/html/index.html || exit 1
+
+# Ensure Nginx is listening on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default || exit 1
+sudo sed -i 's/listen \[::\]:80 default_server;/listen [::]:80;/' /etc/nginx/sites-available/default || exit 1
+
+# Reload Nginx configuration
+sudo nginx -s reload || exit 1
+
+# Restart Nginx using systemd (if available)
+if [ -f /bin/systemctl ]; then
+    sudo systemctl restart nginx || exit 1
+else
+    sudo service nginx restart || exit 1
+fi
+
+# Verify that Nginx is running and serving the expected content
+if curl -s localhost | grep -q "Hello World!"; then
+    echo "Nginx is set up correctly!"
+else
+    echo "Nginx setup failed!"
+    exit 1
+fi

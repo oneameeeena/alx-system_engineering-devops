@@ -1,0 +1,1 @@
+This project focuses on setting up and managing a web server using Nginx. You will learn how to configure a server, set up domain names, and manage server files. By the end of this project, you should be comfortable with basic web server setup and maintenance tasks.
