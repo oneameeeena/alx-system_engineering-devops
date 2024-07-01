@@ -1,0 +1,1 @@
+This project is the first in a series of debugging tasks related to web stack issues. The goal is to debug an Apache web server running in a Docker container, ensuring that it serves a web page containing Hello Holberton when queried at the root.
