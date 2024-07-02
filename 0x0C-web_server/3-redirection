@@ -3,6 +3,8 @@
 # Nginx should be listening on port 80
 # Serve a page that returns the string "Hello World!"
 
+set -e
+
 echo -e "Updating and installing Nginx.\n"
 sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
@@ -12,7 +14,11 @@ echo -e "\nSetting up some minor stuff.\n"
 sudo service nginx start
 
 # Allow nginx on firewall
-sudo ufw allow 'Nginx HTTP'
+if sudo ufw status | grep -q "Status: active"; then
+    sudo ufw allow 'Nginx HTTP'
+else
+	echo "UFW is not active. Skipping firewall rule addition."
+fi
 
 # Give the user ownership to website files for easy editing
 sudo chown -R "$USER":"$USER" /var/www/html
@@ -32,7 +38,7 @@ echo -e "<html>
 </html>" | sudo tee /var/www/html/index.nginx-debian.html
 
 # Setting up /redirect_me to a YouTube video
-sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo sed -i '/^ *location \/ {/a\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # Restarting nginx
 sudo service nginx restart
