@@ -1,0 +1,1 @@
+The 0x0E-web_stack_debugging_1 project is part of a series of projects focused on understanding, diagnosing, and fixing issues within web server stacks. This project emphasizes practical debugging skills necessary for maintaining and ensuring the smooth operation of web services.
