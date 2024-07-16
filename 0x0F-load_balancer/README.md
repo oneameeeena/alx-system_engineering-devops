@@ -1,0 +1,1 @@
+The 0x0F-load_balancer project is part of a series of system administration and DevOps exercises focused on ensuring high availability, scalability, and reliability of web services. In this project, students learn about load balancing, which is a critical concept for distributing network or application traffic across multiple servers.
