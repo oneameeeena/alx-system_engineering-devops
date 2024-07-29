@@ -1,26 +1,30 @@
 #!/usr/bin/python3
-""" Export user posts to csv """
-import csv
+'''
+gather employee data from API
+'''
+
+import re
 import requests
 import sys
 
+REST_API = "https://jsonplaceholder.typicode.com"
+
 if __name__ == '__main__':
-    user = sys.argv[1]
-    url_user = 'https://jsonplaceholder.typicode.com/users/' + user
-    res = requests.get(url_user)
-    """Get username"""
-    user_name = res.json().get('username')
-    posts_url = 'https://jsonplaceholder.typicode.com/posts?userId=' + user
-    res = requests.get(posts_url)
-    posts = res.json()
-
-    with open('{}_posts.csv'.format(user), 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['UserId', 'Username', 'PostId', 'Title', 'Body'])
-        for post in posts:
-            post_id = post.get('id')
-            title = post.get('title')
-            body = post.get('body')
-            """Write each post to CSV"""
-            writer.writerow([user, user_name, post_id, title, body])
-
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            id = int(sys.argv[1])
+            req = requests.get('{}/users/{}'.format(REST_API, id)).json()
+            task_req = requests.get('{}/todos'.format(REST_API)).json()
+            emp_name = req.get('name')
+            tasks = list(filter(lambda x: x.get('userId') == id, task_req))
+            completed_tasks = list(filter(lambda x: x.get('completed'), tasks))
+            print(
+                'Employee {} is done with tasks({}/{}):'.format(
+                    emp_name,
+                    len(completed_tasks),
+                    len(tasks)
+                )
+            )
+            if len(completed_tasks) > 0:
+                for task in completed_tasks:
+                    print('\t {}'.format(task.get('title')))
