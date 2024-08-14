@@ -1,0 +1,1 @@
+ This project focuses on web stack debugging. You will be tasked with identifying and resolving issues in a given web stack, which could include anything from web servers to databases. The objective is to ensure that all parts of the stack work together correctly to serve a web application. 
